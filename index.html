@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+<meta charset='utf-8' />
+<title>Okänt</title>
+<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0,  minimum-scale=1.0"> 
+</head>
+
+<style>
+#wrapper {
+	position:absolute;
+	z-index:0;
+	top:0; 
+	bottom:0; 
+	right:0; 
+	left:0; 
+	overflow:hidden; 
+	background-color:#aaaaaa;
+}
+
+#pictures {
+	position:absolute;
+	z-index:3;
+	width:660px;
+	height:100%;  
+	overflow:auto;
+	top: 50%;
+	left: 50%;
+	marign-top: -50%;
+	margin-right: -50%;
+	transform: translate(-50%, -50%);
+}
+
+.picture {
+	position:static;
+	z-index:4;
+	width:100%;
+}
+
+.picture img {
+	width:100%;
+}
+
+@media (max-width:660px){
+
+#pictures {
+	width:100%;
+}
+
+}
+
+
+</style>
+
+<body>
+	<div id="wrapper">
+		<div id="pictures">
+		</div>
+	</div>
+</body>
+
+<script>
+
+var ws = new WebSocket('ws://192.168.1.100:1012', 'echo-protocol');
+
+ws.addEventListener("message", function(e) {
+	document.getElementById('pictures').innerHTML = "<div class='picture'><img src='" + e.data  +"'></div>" + document.getElementById('pictures').innerHTML;
+});
+
+</script>
+
+</html>
